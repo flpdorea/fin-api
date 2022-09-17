@@ -103,4 +103,13 @@ app.get('/statement/date', verifyIfAccountCPFExists, (req, res) => {
     return res.json(statement)
 })
 
+app.put('/account', verifyIfAccountCPFExists, (req, res) => {
+    const { name } = req.body
+    const { customer } = req
+
+    customer.name = name
+
+    return res.status(201).send()
+})
+
 app.listen(3000, () => { console.log('Server is running!') })
