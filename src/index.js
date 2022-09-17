@@ -123,7 +123,7 @@ app.delete('/account', verifyIfAccountCPFExists, (req, res) => {
 
     customers.splice(customer, 1)
 
-    return res.status(200).json(customers)
+    return res.status(204)
 })
 
 app.get('/balance', verifyIfAccountCPFExists, (req, res) => {
