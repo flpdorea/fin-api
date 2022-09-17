@@ -112,4 +112,10 @@ app.put('/account', verifyIfAccountCPFExists, (req, res) => {
     return res.status(201).send()
 })
 
+app.get('/account', verifyIfAccountCPFExists, (req, res) => {
+    const { customer } = req
+
+    return res.json(customer)
+})
+
 app.listen(3000, () => { console.log('Server is running!') })
