@@ -2,10 +2,9 @@ const express = require('express')
 const { v4: uuidv4 } = require('uuid')
 
 const app = express()
+const customers = []
 
 app.use(express.json())
-
-const customers = []
 
 function verifyIfAccountCPFExists(req, res, next) {
     const { cpf } = req.headers
@@ -43,6 +42,22 @@ app.get('/statement', verifyIfAccountCPFExists, (req, res) => {
     const { customer } = req
 
     return res.json(customer.statement)
+})
+
+app.post('/deposit', verifyIfAccountCPFExists, (req, res) => {
+    const { description, amount } = req.body
+    const { customer } = req
+
+    const statementOperation = {
+        description,
+        amount,
+        created_at: new Date(),
+        type: 'credit'
+    }
+
+    customer.statement.push(statementOperation)
+
+    return res.status(201).send()
 })
 
 app.listen(3000, () => { console.log('Server is running!') })
