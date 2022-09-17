@@ -118,4 +118,12 @@ app.get('/account', verifyIfAccountCPFExists, (req, res) => {
     return res.json(customer)
 })
 
+app.delete('/account', verifyIfAccountCPFExists, (req, res) => {
+    const { customer } = req
+
+    customers.splice(customer, 1)
+
+    return res.status(200).json(customers)
+})
+
 app.listen(3000, () => { console.log('Server is running!') })
