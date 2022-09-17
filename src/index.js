@@ -126,4 +126,12 @@ app.delete('/account', verifyIfAccountCPFExists, (req, res) => {
     return res.status(200).json(customers)
 })
 
+app.get('/balance', verifyIfAccountCPFExists, (req, res) => {
+    const { customer } = req
+
+    const balance = getBalance(customer.statement)
+
+    return res.json(balance)
+})
+
 app.listen(3000, () => { console.log('Server is running!') })
